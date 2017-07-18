@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Task } from '../models/index';
+import { HorizonService } from '../../horizon.service';
 
 @Component({
   selector: 'app-task-add',
   templateUrl: './task-add.component.html',
   styleUrls: ['./task-add.component.scss']
 })
-export class TaskAddComponent implements OnInit {
+export class TaskAddComponent {
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private HorizonService: HorizonService) {
+    this.addTask('Demo Task');
   }
 
+  onEnter(value: string) {
+    this.addTask(value);
+  }
+
+  addTask(title: string) {
+    this.HorizonService.table('tasks').store(new Task(title));
+  }
 }

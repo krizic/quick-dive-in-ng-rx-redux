@@ -1,11 +1,15 @@
 export class Task {
+  id: string;
   title?: string;
-  stamp?: number = + new Date();
+  description?: string;
+  creationStamp?: number = + new Date();
+  doneStamp?: number;
   user?: any;
-  done?: boolean;
+  done = false;
   tags?: string [] = [];
 
-  constructor(title: string = 'Unnamed task') {
+  constructor(title: string = 'Unnamed task', description: string = 'No Description') {
     this.title = title;
+    this.description = description;
   }
 }

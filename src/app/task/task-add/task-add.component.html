@@ -1,1 +1,5 @@
-<input mdInput placeholder="Task Title">
+<form action="">
+  <md-input-container>
+    <input mdInput #taskTitle placeholder="Task Title" (keyup.enter)="onEnter(taskTitle.value); taskTitle.value=''">
+  </md-input-container>
+</form>

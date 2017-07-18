@@ -1,0 +1,5 @@
+<form novalidate [formGroup]="addTaskFormGroup">
+  <md-input-container>
+    <input mdInput #taskTitle placeholder="Task Title" formControlName="taskTitle" (keyup.enter)="onSubmit()">
+  </md-input-container>
+</form>

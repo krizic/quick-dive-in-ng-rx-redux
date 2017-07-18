@@ -10,14 +10,28 @@ import { Task } from '../models';
 })
 export class TaskListComponent {
 
-  tasks$: Observable<any>;
+  activeTasks$: Observable<Task[]>;
+  doneTasks$: Observable<Task[]>;
 
   constructor(private HorizonService: HorizonService) {
-    this.tasks$ = this.HorizonService.table('tasks').watch();
-    this.initDemoTasks();
+    this.activeTasks$ = this.HorizonService.table('tasks')
+      .findAll({ done: false })
+      .order('creationStamp', 'descending')
+      .limit(25)
+      .watch();
+
+    this.doneTasks$ = this.HorizonService.table('tasks')
+      .findAll({ done: true })
+      .order('doneStamp', 'descending')
+      .limit(25)
+      .watch();
   }
 
-  initDemoTasks() {
-    this.HorizonService.table('tasks').store(new Task('Demo Task'));
+  onToggle(task: Task) {
+    this.HorizonService.table('tasks').update({
+        id: task.id,
+        done: !task.done,
+        doneStamp: + new Date()
+      });
   }
 }

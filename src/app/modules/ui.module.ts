@@ -2,15 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  MdButtonModule,
-  MdInputModule,
+  MdButtonModule, MdCardModule, MdCheckboxModule,
+  MdInputModule, MdLineModule,
   MdListModule
 } from '@angular/material';
 
 const MdModules = [
   MdButtonModule,
   MdInputModule,
-  MdListModule
+  MdListModule,
+  MdCardModule,
+  MdCheckboxModule,
+  MdListModule,
+  MdLineModule
 ];
 
 @NgModule({

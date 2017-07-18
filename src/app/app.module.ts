@@ -4,16 +4,14 @@ import { NgModule } from '@angular/core';
 import { HorizonService } from './horizon.service';
 import { AppComponent } from './app.component';
 import { TaskModule } from './task/task.module';
-import { UIModule } from './modules/ui.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports:      [
     BrowserModule,
-    TaskModule,
-    UIModule
+    TaskModule
   ],
   providers:    [HorizonService],
   bootstrap:    [AppComponent]
