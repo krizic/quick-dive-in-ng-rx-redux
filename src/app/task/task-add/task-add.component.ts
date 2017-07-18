@@ -14,6 +14,7 @@ export class TaskAddComponent {
   }
 
   onEnter(value: string) {
+    debugger;
     this.addTask(value);
   }
 
