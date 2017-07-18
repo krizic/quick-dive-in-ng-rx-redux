@@ -1,0 +1,5 @@
+<div>
+  <div *ngFor="let task of tasks$ | async">
+    {{task.title}} {{task.id}}
+  </div>
+</div>
