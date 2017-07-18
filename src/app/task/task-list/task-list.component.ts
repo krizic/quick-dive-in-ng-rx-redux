@@ -18,13 +18,15 @@ export class TaskListComponent {
       .findAll({ done: false })
       .order('creationStamp', 'descending')
       .limit(25)
-      .watch();
+      .watch()
+      .share();
 
     this.doneTasks$ = this.HorizonService.table('tasks')
       .findAll({ done: true })
       .order('doneStamp', 'descending')
       .limit(25)
-      .watch();
+      .watch()
+      .share();
   }
 
   onToggle(task: Task) {
