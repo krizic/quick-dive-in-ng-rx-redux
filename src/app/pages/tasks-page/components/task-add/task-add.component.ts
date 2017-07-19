@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Task } from '../../models/index';
-import { HorizonService } from '../../api/horizon-service';
+import { Task } from '../../../../models/index';
+import { HorizonService } from '../../../../api/horizon-service';
 
 @Component({
   selector: 'app-task-add',

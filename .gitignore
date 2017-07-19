@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/rethinkdb_data
 
 # dependencies
 /node_modules

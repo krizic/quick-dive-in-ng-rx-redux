@@ -8,8 +8,9 @@ export class Task {
   done = false;
   tags?: string [] = [];
 
-  constructor(title: string = 'Unnamed task', description: string = 'No Description') {
+  constructor(title: string = 'Unnamed task', description: string = 'No Description', user: string = '') {
     this.title = title;
     this.description = description;
+    this.user = user;
   }
 }

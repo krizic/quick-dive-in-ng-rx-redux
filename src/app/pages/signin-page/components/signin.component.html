@@ -1,0 +1,10 @@
+<div class="wrapper">
+  <md-card>
+    <md-input-container class="example-full-width" class="block">
+      <input #username mdInput placeholder="Username" (keyup.enter)="onSignin(username.value)">
+    </md-input-container>
+    <md-card-actions class="actions">
+      <button md-raised-button (click)="onSignin(username.value)">Sign in</button>
+    </md-card-actions>
+  </md-card>
+</div>

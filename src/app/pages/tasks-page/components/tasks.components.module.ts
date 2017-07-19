@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskAddComponent } from './task-add/task-add.component';
 import { TaskListComponent } from './task-list/task-list.component';
-import { UIModule } from '../modules/ui.module';
+import { UIModule } from '../../../modules/ui.module';
 import { TaskAddRxComponent } from './task-add-rx/task-add-rx.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskTimelineComponent } from './task-timeline/task-timeline.component';
@@ -28,5 +28,5 @@ const COMPONENTS = [
     ...COMPONENTS
   ]
 })
-export class TaskModule {
+export class TasksComponentsModule {
 }

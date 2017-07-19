@@ -13,7 +13,7 @@
             {{task.title}}
           </md-checkbox>
         </h4>
-        <p md-line> {{task.description}} </p>
+        <span md-line class="reduce capitalize" *ngIf="task.user">by: {{task.user}} </span>
         <button md-icon-button (click)="onRemove(task)">
           <md-icon>delete</md-icon>
         </button>
@@ -29,8 +29,7 @@
                 {{task.title}}
               </md-checkbox>
             </h4>
-
-        <p md-line> {{task.description}} </p>
+        <span md-line class="reduce capitalize" *ngIf="task.user">by: {{task.user}} </span>
         <button md-icon-button (click)="onRemove(task)">
           <md-icon>delete</md-icon>
         </button>
