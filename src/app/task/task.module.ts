@@ -5,11 +5,13 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { UIModule } from '../modules/ui.module';
 import { TaskAddRxComponent } from './task-add-rx/task-add-rx.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TaskTimelineComponent } from './task-timeline/task-timeline.component';
 
 const COMPONENTS = [
   TaskAddComponent,
   TaskListComponent,
-  TaskAddRxComponent
+  TaskAddRxComponent,
+  TaskTimelineComponent
 ]
 
 @NgModule({

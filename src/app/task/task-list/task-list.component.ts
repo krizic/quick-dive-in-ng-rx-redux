@@ -1,7 +1,8 @@
+import { Observable } from 'rxjs/';
 import { Component } from '@angular/core';
-import { HorizonService } from '../../horizon.service';
-import { Observable } from 'rxjs/Observable';
-import { Task } from '../models';
+
+import { TasksService } from '../../api/tasks-service/tasks.service';
+import { Task } from '../../models';
 
 @Component({
   selector:    'app-task-list',
@@ -10,30 +11,40 @@ import { Task } from '../models';
 })
 export class TaskListComponent {
 
-  activeTasks$: Observable<Task[]>;
-  doneTasks$: Observable<Task[]>;
+  groupedTasks$: Observable<Task[][]>;
+  totalShown: number;
 
-  constructor(private HorizonService: HorizonService) {
-    this.activeTasks$ = this.HorizonService.table('tasks')
-      .findAll({ done: false })
-      .order('creationStamp', 'descending')
-      .limit(25)
-      .watch()
-      .share();
+  constructor(private TasksService: TasksService) {
+    this.groupedTasks$ = this.TasksService.getAll('creationStamp', 25)
+      .do((tasks) => {
+        this.totalShown = tasks.length;
+      })
+      .map((tasks) => {
+      return tasks.reduce((acc, current, index) => {
+        if (index > 0) {
+          const groupBy = 6;
+          const currentGroup = Math.trunc(index / groupBy);
+          const currentItemInGroup = index % groupBy;
 
-    this.doneTasks$ = this.HorizonService.table('tasks')
-      .findAll({ done: true })
-      .order('doneStamp', 'descending')
-      .limit(25)
-      .watch()
-      .share();
+          if (currentItemInGroup === 0) {
+            acc.push([]);
+          }
+          acc[currentGroup][currentItemInGroup] = current;
+          return acc;
+        } else {
+          acc[index][0] = current;
+          return acc;
+        }
+      }, [[]]);
+    });
   }
 
   onToggle(task: Task) {
-    this.HorizonService.table('tasks').update({
+    this.TasksService.update({
         id: task.id,
         done: !task.done,
         doneStamp: + new Date()
       });
   }
 }
+

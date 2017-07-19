@@ -1,8 +1,8 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 
-import { HorizonService } from '../../horizon.service';
-import { Task } from '../models/index';
+import { HorizonService } from '../../api/horizon-service';
+import { Task } from '../../models/index';
 
 @Component({
   selector:    'app-task-add-rx',

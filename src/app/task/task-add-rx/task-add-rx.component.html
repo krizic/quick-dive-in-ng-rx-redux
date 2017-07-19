@@ -1,5 +1,5 @@
 <md-card>
-  <form novalidate [formGroup]="addTaskFormGroup" (keyup.enter)="onSubmit()">
+  <form novalidate [formGroup]="addTaskFormGroup" (keyup.enter)="onSubmit()" class="flex">
     <md-input-container class="block">
       <input mdInput placeholder="Title" formControlName="taskTitle">
     </md-input-container>

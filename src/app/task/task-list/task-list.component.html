@@ -1,22 +1,16 @@
-<div class="wrapper">
-  <md-list>
-    <h3 md-subheader>Active</h3>
-    <md-list-item *ngFor="let task of activeTasks$ | async">
-      <h4 md-line>
-        <md-checkbox [checked]="task.done"
-                     (change)="onToggle(task)">
-          {{task.title}}
-        </md-checkbox>
-      </h4>
+<md-card>
+  <md-card-header>
+    <md-card-title><h3>Tasks:</h3></md-card-title>
+    <md-card-subtitle>Total: {{totalShown}}</md-card-subtitle>
+  </md-card-header>
+  <div class="flex" *ngFor="let taskGroup of groupedTasks$ | async">
+    <md-card *ngFor="let task of taskGroup" class="flex-grow m-03">
+      <md-checkbox [checked]="task.done"
+                   (change)="onToggle(task)">
+        {{task.title}}
+      </md-checkbox>
       <p md-line> {{task.description}} </p>
-    </md-list-item>
+    </md-card>
+  </div>
+</md-card>
 
-    <md-divider></md-divider>
-
-    <h3 md-subheader>Done</h3>
-    <md-list-item *ngFor="let task of doneTasks$ | async">
-      <h4 md-line>{{task.title}}</h4>
-      <p md-line> {{task.description}} </p>
-    </md-list-item>
-  </md-list>
-</div>
