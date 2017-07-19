@@ -1,19 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { HorizonService } from './horizon.service';
 import { AppComponent } from './app.component';
 import { TaskModule } from './task/task.module';
+import { ApiModule } from './api/api.module';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports:      [
+    ApiModule.forRoot(),
     BrowserModule,
     TaskModule
   ],
-  providers:    [HorizonService],
   bootstrap:    [AppComponent]
 })
 export class AppModule {
