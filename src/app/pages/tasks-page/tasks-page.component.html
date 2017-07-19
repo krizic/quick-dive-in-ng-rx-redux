@@ -2,10 +2,13 @@
   <app-task-add-rx></app-task-add-rx>
 </div>
 <div class="flex flex-start">
-  <section class="flex-col-4 p-025">
+  <section class="flex-col-2 p-025">
     <app-task-list></app-task-list>
   </section>
   <section class="flex-col-1 p-025">
-    <app-task-timeline></app-task-timeline>
+  <app-task-timeline></app-task-timeline>
+</section>
+  <section class="flex-col-1 p-025">
+    <app-logs-timeline [logs$]="logs$"></app-logs-timeline>
   </section>
 </div>

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { LogsService } from '../../api/logs-service/logs.service';
+import { Observable } from 'rxjs/Observable';
+import { Log } from '../../models/index';
 
 @Component({
   selector:    'app-tasks-page',
@@ -6,6 +9,10 @@ import { Component } from '@angular/core';
 })
 
 export class TasksPageComponent {
-  constructor() {
+
+  logs$: Observable<Log[]>;
+
+  constructor(private LogsService: LogsService) {
+    this.logs$ = this.LogsService.getAll();
   }
 }

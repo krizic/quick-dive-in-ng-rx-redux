@@ -1,0 +1,16 @@
+<md-card>
+  <md-card-header>
+    <md-card-title><h3>Logs:</h3></md-card-title>
+    <md-card-subtitle>Latest: {{(logs$ | async)?.length}}</md-card-subtitle>
+  </md-card-header>
+  <div class="wrapper">
+    <md-list>
+      <h3 md-subheader>Live:</h3>
+      <md-list-item *ngFor="let log of logs$ | async">
+        <p md-line>
+            {{log.text}} by <span class="capitalize bold">{{log.user}}</span> at <span class="bold">{{dateToLocal(log.stamp)}}</span>
+        </p>
+      </md-list-item>
+    </md-list>
+  </div>
+</md-card>

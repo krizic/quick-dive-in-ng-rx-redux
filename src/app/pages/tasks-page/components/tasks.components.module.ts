@@ -6,12 +6,14 @@ import { UIModule } from '../../../modules/ui.module';
 import { TaskAddRxComponent } from './task-add-rx/task-add-rx.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskTimelineComponent } from './task-timeline/task-timeline.component';
+import { LogsTimelineComponent } from './logs-timeline/logs-timeline.component';
 
 const COMPONENTS = [
   TaskAddComponent,
   TaskListComponent,
   TaskAddRxComponent,
-  TaskTimelineComponent
+  TaskTimelineComponent,
+  LogsTimelineComponent
 ]
 
 @NgModule({

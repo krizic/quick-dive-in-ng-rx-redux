@@ -14,3 +14,16 @@ export class Task {
     this.user = user;
   }
 }
+
+export class Log {
+  id?: string;
+  stamp?: number;
+  user?: string;
+  text?: string;
+
+  constructor(text: string, user: string) {
+    this.stamp = + new Date();
+    this.text = text;
+    this.user = user;
+  }
+}

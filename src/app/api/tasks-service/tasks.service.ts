@@ -4,13 +4,15 @@ import { Injectable } from '@angular/core';
 
 
 import { Task } from '../../models';
+import { LogsService } from '../logs-service/logs.service';
 
 @Injectable()
 export class TasksService {
 
   readonly tasks$;
 
-  constructor(private HorizonService: HorizonService) {
+  constructor(private HorizonService: HorizonService,
+              private LogsService: LogsService) {
     this.tasks$ = this.HorizonService.table('tasks');
   }
 
@@ -32,13 +34,16 @@ export class TasksService {
 
   add(t: Task | Task[]): void {
     this.tasks$.store(t);
+    this.LogsService.log('New task was added');
   }
 
   update(t: Task | Task[]): void {
     this.tasks$.update(t);
+    this.LogsService.log('Task was updated');
   }
 
   remove(t: Task | string) {
     this.tasks$.remove(t);
+    this.LogsService.log('Task was removed');
   }
 }

@@ -22,7 +22,7 @@ export class TaskListComponent {
       .map((tasks) => {
       return tasks.reduce((acc, current, index) => {
         if (index > 0) {
-          const groupBy = 6;
+          const groupBy = 4;
           const currentGroup = Math.trunc(index / groupBy);
           const currentItemInGroup = index % groupBy;
 
