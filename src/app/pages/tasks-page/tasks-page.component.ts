@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { LogsService } from '../../api/logs-service/logs.service';
 import { Observable } from 'rxjs/Observable';
 import { Log } from '../../models/index';
+import { TasksService } from '../../api/tasks-service/tasks.service';
+import { Task } from 'protractor/built/taskScheduler';
 
 @Component({
   selector:    'app-tasks-page',
