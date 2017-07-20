@@ -25,11 +25,15 @@ export class TasksService {
   }
 
   findAll(query: Task, orderBy: string = 'creationStamp', limit: number = 100): Observable<Task[]> {
-    return this.tasks$.findAll(query)
-      .order(orderBy, 'descending')
-      .limit(limit)
-      .watch()
-      .share();
+    if (Object.keys(query).length) {
+      return this.tasks$.findAll(query)
+        .order(orderBy, 'descending')
+        .limit(limit)
+        .watch()
+        .share();
+    } else {
+      return this.getAll(orderBy, limit);
+    }
   }
 
   add(t: Task | Task[]): void {

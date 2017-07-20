@@ -1,16 +1,45 @@
 <md-card>
-  <md-card-header>
-    <md-card-title><h3>Tasks:</h3></md-card-title>
-    <md-card-subtitle>Total: {{totalShown}}</md-card-subtitle>
-  </md-card-header>
-  <div class="flex" *ngFor="let taskGroup of groupedTasks$ | async">
-    <md-card *ngFor="let task of taskGroup" class="flex-grow m-03">
+  <md-toolbar class="flex">
+    <div class="flex-grow">
+      <form class="flex"
+            novalidate
+            [formGroup]="filterFormGroup">
+        <md-input-container class="flex-grow">
+          <input mdInput
+                 placeholder="Title"
+                 formControlName="title">
+        </md-input-container>
+        <md-input-container class="flex-grow">
+          <input mdInput
+                 placeholder="Created by"
+                 formControlName="user">
+        </md-input-container>
+        <md-checkbox formControlName="done"
+            class="flex-grow">
+          <span class="reduce">State</span>
+        </md-checkbox>
+        <div class="px-1">
+          <p class="reduce">Total: {{totalShown}}</p>
+        </div>
+        <button md-mini-fab
+                (click)="filterFormGroup.reset()" >
+          <md-icon>clear</md-icon>
+        </button>
+      </form>
+    </div>
+
+  </md-toolbar>
+  <div class="flex"
+       *ngFor="let taskGroup of queriedGroupedTasks$ | async">
+    <md-card *ngFor="let task of taskGroup"
+             class="flex-grow m-03">
       <md-checkbox [checked]="task.done"
                    (change)="onToggle(task)">
         {{task.title}}
       </md-checkbox>
       <p md-line> {{task.description}} </p>
-      <p md-line class="capitalize reduce"> by: {{task.user}} </p>
+      <p md-line
+         class="capitalize reduce"> by: {{task.user}} </p>
     </md-card>
   </div>
 </md-card>

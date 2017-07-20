@@ -5,7 +5,7 @@ export class Task {
   creationStamp?: number = + new Date();
   doneStamp?: number;
   user?: any;
-  done = false;
+  done? = false;
   tags?: string [] = [];
 
   constructor(title: string = 'Unnamed task', description: string = 'No Description', user: string = '') {
