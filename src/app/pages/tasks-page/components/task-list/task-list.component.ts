@@ -12,7 +12,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class TaskListComponent {
 
-  queriedGroupedTasks$: Observable<Task[][]>;
   formQueried$: Observable<Task[][]>;
 
   totalShown: number;
@@ -28,11 +27,11 @@ export class TaskListComponent {
     });
 
     /**
-     * filterFormGroup.valueChanges:   ----ff-ffff---ff-ffff-----f----f------ffff----->
+     * filterFormGroup.valueChanges:   ----ff-ffff----------ff-f-f----f------ffff----->
      * startWith:                      f---------------------------------------------->
      * debounceTime:                   f---------f---------------f----f---------f----->
      * tasks$.watch():                 --------------------f-------------------------->
-     * combineLatest:                  {f}-------{f}-------{f}---{}---{f}-------{}---->
+     * combineLatest:                  {f}-------{f}-------{f}---{f}--{f}-------{f}--->
      * switchMap:                      \         \         \     \    \         \
      * TasksService.findAll            [r]------|[r]------|[r]--|[r]-|[r]-------[r]--->
      * let(this.getItemsGrouped()):    [[r]]----[[r]]-----[[r]]-[[r]][[r]]-----[[r]]->
@@ -51,14 +50,6 @@ export class TaskListComponent {
       })
       .switchMap((form) => Observable.merge(this.TasksService.findAll(form, 'creationStamp', 25)))
       .let(this.getItemsGrouped());
-
-    /**
-     * formQueried$:                   ----------------[[r]]--------[[r]]--->
-     * initGroupedTasks$:              [[r]]-|
-     * merge:                          [[r]]-----------[[r]]--------[[r]]--->
-     */
-    this.queriedGroupedTasks$ = this.formQueried$;
-
   }
 
   getItemsGrouped = () => {

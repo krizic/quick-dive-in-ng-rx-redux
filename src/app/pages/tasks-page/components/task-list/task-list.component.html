@@ -30,7 +30,7 @@
 
   </md-toolbar>
   <div class="flex"
-       *ngFor="let taskGroup of queriedGroupedTasks$ | async">
+       *ngFor="let taskGroup of formQueried$ | async">
     <md-card *ngFor="let task of taskGroup"
              class="flex-grow m-03">
       <md-checkbox [checked]="task.done"
