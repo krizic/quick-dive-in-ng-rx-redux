@@ -1,29 +1,41 @@
 import { Observable } from 'rxjs/';
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { TasksService } from '../../../../api/tasks-service/tasks.service';
 import { Task } from '../../../../models';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import * as Actions from '../../reducers/tasks-page.reducer';
 
 @Component({
   selector:    'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrls:   ['./task-list.component.scss']
 })
-export class TaskListComponent {
+export class TaskListComponent implements OnInit {
 
   formQueried$: Observable<Task[][]>;
+  @Input() state$: Observable<Task>;
 
   totalShown: number;
 
   filterFormGroup: FormGroup;
 
-  constructor(private TasksService: TasksService) {
+  constructor(private TasksService: TasksService,
+              private store: Store<any>) {
 
     this.filterFormGroup = new FormGroup({
       title: new FormControl(''),
       user:  new FormControl(''),
       done:  new FormControl('')
+    });
+  }
+
+  ngOnInit(): void {
+
+    this.state$.subscribe((state: Task) => {
+      debugger;
+      this.filterFormGroup.patchValue(state);
     });
 
     /**
@@ -36,20 +48,28 @@ export class TaskListComponent {
      * TasksService.findAll            [r]------|[r]------|[r]--|[r]-|[r]-------[r]--->
      * let(this.getItemsGrouped()):    [[r]]----[[r]]-----[[r]]-[[r]][[r]]-----[[r]]->
      */
-    this.formQueried$ = this.filterFormGroup.valueChanges
-      .startWith({})
-      .debounceTime(300)
+    this.formQueried$ = this.state$
+      .distinctUntilChanged()
       .combineLatest(Observable.merge(this.TasksService.tasks$.watch()), (form: Task, changes) => {
+        return form;
+      })
+      .switchMap((form) => {
         const plucked = {};
         Object.keys(form).forEach((key) => {
           if (form[key] !== null && form[key] !== '') {
             plucked[key] = form[key];
           }
         });
-        return plucked;
+        return Observable.merge(this.TasksService.findAll(plucked, 'creationStamp', 25));
       })
-      .switchMap((form) => Observable.merge(this.TasksService.findAll(form, 'creationStamp', 25)))
       .let(this.getItemsGrouped());
+
+    this.filterFormGroup.valueChanges
+      .debounceTime(300)
+      .subscribe((values: Task) => {
+      debugger;
+        this.store.dispatch(new Actions.Update(values));
+      });
   }
 
   getItemsGrouped = () => {

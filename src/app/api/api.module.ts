@@ -3,9 +3,9 @@ import {
   HorizonService,
   TasksService,
   UserService,
-  LogsService
+  LogsService,
+  StateService
 } from './';
-
 
 @NgModule()
 export class ApiModule {
@@ -16,7 +16,8 @@ export class ApiModule {
         HorizonService,
         TasksService,
         UserService,
-        LogsService
+        LogsService,
+        StateService
       ]
     };
   }

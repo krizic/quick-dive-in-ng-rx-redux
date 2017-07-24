@@ -6,13 +6,12 @@ export class UserService {
   constructor() {
   }
 
-  setUser(username: string):void {
+  setUser(username: string): void {
     localStorage.setItem('demo-username', username);
   }
 
   getUser(): string {
     return localStorage.getItem('demo-username');
-
   }
 
   checkIfLogged(): boolean {
