@@ -1,8 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import {
   HorizonService,
-  TasksService,
-  UserService
+  TasksService
 } from './';
 
 
@@ -13,8 +12,7 @@ export class ApiModule {
       ngModule: ApiModule,
       providers: [
         HorizonService,
-        TasksService,
-        UserService
+        TasksService
       ]
     };
   }
