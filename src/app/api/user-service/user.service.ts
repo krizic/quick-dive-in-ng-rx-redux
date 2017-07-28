@@ -6,7 +6,7 @@ export class UserService {
   constructor() {
   }
 
-  setUser(username: string):void {
+  setUser(username: string): void {
     localStorage.setItem('demo-username', username);
   }
 
