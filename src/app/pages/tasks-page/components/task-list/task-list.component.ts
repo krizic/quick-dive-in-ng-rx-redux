@@ -33,27 +33,24 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.state$.subscribe((state: Task) => {
-      debugger;
+    this.state$.subscribe((state: Task = {}) => {
       this.filterFormGroup.patchValue(state);
     });
 
     /**
-     * filterFormGroup.valueChanges:   ----ff-ffff----------ff-f-f----f------ffff----->
-     * startWith:                      f---------------------------------------------->
-     * debounceTime:                   f---------f---------------f----f---------f----->
+     * this.state$:                    f---------f---------------f----f---------f----->
      * tasks$.watch():                 --------------------f-------------------------->
      * combineLatest:                  {f}-------{f}-------{f}---{f}--{f}-------{f}--->
      * switchMap:                      \         \         \     \    \         \
      * TasksService.findAll            [r]------|[r]------|[r]--|[r]-|[r]-------[r]--->
-     * let(this.getItemsGrouped()):    [[r]]----[[r]]-----[[r]]-[[r]][[r]]-----[[r]]->
+     * let(this.getItemsGrouped()):    [[r]]-----[[r]]-----[[r]]-[[r]][[r]]-----[[r]]->
      */
     this.formQueried$ = this.state$
       .distinctUntilChanged()
-      .combineLatest(Observable.merge(this.TasksService.tasks$.watch()), (form: Task, changes) => {
+      .combineLatest(Observable.merge(this.TasksService.tasks$.watch({rawChanges: true})), (form: Task, changes) => {
         return form;
       })
-      .switchMap((form) => {
+      .switchMap((form = {}) => {
         const plucked = {};
         Object.keys(form).forEach((key) => {
           if (form[key] !== null && form[key] !== '') {
@@ -64,10 +61,13 @@ export class TaskListComponent implements OnInit {
       })
       .let(this.getItemsGrouped());
 
+    /**
+     * filterFormGroup.valueChanges:   ----ff-ffff----------ff-f-f----f------ffff----->
+     * debounceTime:                   f---------f---------------f----f---------f----->
+     */
     this.filterFormGroup.valueChanges
       .debounceTime(300)
       .subscribe((values: Task) => {
-      debugger;
         this.store.dispatch(new Actions.Update(values));
       });
   }
