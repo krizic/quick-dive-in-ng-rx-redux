@@ -14,7 +14,8 @@ export const appRoutes: Routes = [
     path: 'signin',
     component: SigninPageComponent
   },
-  { path: '',
+  {
+    path: '',
     redirectTo: '/tasks',
     pathMatch: 'full'
   },
